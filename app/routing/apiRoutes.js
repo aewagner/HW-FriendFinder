@@ -35,36 +35,60 @@ module.exports = function(app) {
             // It will do this by sending out the value "true" have a table
             // req.body is available since we're using the body-parser middleware
 
-            var result = req.body;
+            let friendMatch = {
+                name: "",
+                photo: "",
+                friendScore: 1000
+            };
 
-            friends.push(result);
+            console.log(req.body);
+
+            var result = req.body;
+            var resultScore = result.scores;
+
+            console.log(resultScore);
+
+
+
+            let compatibility = 0;
 
             for (var i = 0; i < friends.length; i++) {
-                friends[i].scores
 
+                console.log(friends[i]);
+                compatibility = 0;
 
-                var compatibility = 0;
+                for (var j = 0; j < friends[i].scores[j]; j++) {
 
-                var i = 0;
-                var j = 0;
+                    compatability = Math.abs(parseInt(friends[i].scores[j]) - parseInt(resultScore[j]));
+                    if (compatibility <= friendMatch.friendScore) {
+                        
+                        // console.log("your match is " + this.friends[i]);
 
-                while (i)
+                        friendMatch.name = friends[i].name;
+                        friendMatch.photo = friends[i].photo;
+                        friendMatch.friendScore = compatibility;
+                    }
 
-
+                }
             }
-        }
 
-    });
+            friends.push(result);
+            res.json(friendMatch);
+        });
+
+
+
+    };
 
 // ---------------------------------------------------------------------------
 // I added this below code so you could clear out the table while working with the functionality.
 // Don"t worry about it!
 
-app.post("/api/clear", function() {
-    // Empty out the arrays of data
-    tableData = [];
-    waitListData = [];
+// app.post("/api/clear", function() {
+//     // Empty out the arrays of data
+//     tableData = [];
+//     waitListData = [];
 
-    console.log(tableData);
-});
-};
+//     console.log(tableData);
+// });
+// };
